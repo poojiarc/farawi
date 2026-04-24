@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Sparkles, Award, Users, Heart } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
@@ -8,19 +9,6 @@ import g3 from "@/assets/gallery-3.jpg";
 import g6 from "@/assets/gallery-6.jpg";
 import hero from "@/assets/hero-1.jpg";
 
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About — Farawi Events" },
-      { name: "description", content: "Discover the story behind Farawi Events — Dubai's luxury event company defined by craft, culture and unforgettable celebrations." },
-      { property: "og:title", content: "About Farawi Events" },
-      { property: "og:description", content: "Cinematic events crafted with Arabic heritage and contemporary luxury." },
-      { property: "og:image", content: "/favicon.png" },
-    ],
-  }),
-  component: About,
-});
-
 const values = [
   { Icon: Sparkles, title: "Cinematic Vision", text: "Every event is staged like a film — composed for emotion, lit for memory." },
   { Icon: Award, title: "Uncompromising Craft", text: "From floral to lighting, we partner only with the world's finest artisans." },
@@ -28,9 +16,16 @@ const values = [
   { Icon: Heart, title: "Heritage & Soul", text: "Rooted in Arabic hospitality, refined for a global luxury audience." },
 ];
 
-function About() {
+export default function About() {
   return (
     <>
+      <Helmet>
+        <title>About — Farawi Events</title>
+        <meta name="description" content="Discover the story behind Farawi Events — Dubai's luxury event company defined by craft, culture and unforgettable celebrations." />
+        <meta property="og:title" content="About Farawi Events" />
+        <meta property="og:description" content="Cinematic events crafted with Arabic heritage and contemporary luxury." />
+        <meta property="og:image" content="/favicon.png" />
+      </Helmet>
       <PageHero image={hero} eyebrow="Our Story" title="The Soul of <em class='text-gold-gradient italic'>Farawi</em>" breadcrumb="About" />
 
       <section className="section-padding container-luxe">

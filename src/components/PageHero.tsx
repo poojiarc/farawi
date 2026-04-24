@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 
 export function PageHero({ image, eyebrow, title, breadcrumb }: {
   image: string; eyebrow: string; title: string; breadcrumb: string;

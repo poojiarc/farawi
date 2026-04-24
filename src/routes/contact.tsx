@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Linkedin } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
@@ -7,19 +7,7 @@ import { site, whatsappLink } from "@/components/site-config";
 import { services } from "@/data/services";
 import hero from "@/assets/hero-1.jpg";
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — Farawi Events Dubai" },
-      { name: "description", content: "Get in touch with Farawi Events. Call, email or message us on WhatsApp to plan your luxury celebration in Dubai." },
-      { property: "og:title", content: "Contact Farawi Events" },
-      { property: "og:description", content: "Plan your luxury event in Dubai today." },
-    ],
-  }),
-  component: Contact,
-});
-
-function Contact() {
+export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: services[0].title, message: "" });
 
   const submit = (e: FormEvent) => {
@@ -30,6 +18,12 @@ function Contact() {
 
   return (
     <>
+      <Helmet>
+        <title>Contact — Farawi Events Dubai</title>
+        <meta name="description" content="Get in touch with Farawi Events. Call, email or message us on WhatsApp to plan your luxury celebration in Dubai." />
+        <meta property="og:title" content="Contact Farawi Events" />
+        <meta property="og:description" content="Plan your luxury event in Dubai today." />
+      </Helmet>
       <PageHero image={hero} eyebrow="Get In Touch" title="Let's Plan <em class='text-gold-gradient italic'>Together</em>" breadcrumb="Contact" />
 
       <section className="section-padding container-luxe">

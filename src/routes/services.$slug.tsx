@@ -1,4 +1,5 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
@@ -9,42 +10,32 @@ import g2 from "@/assets/gallery-2.jpg";
 import g3 from "@/assets/gallery-3.jpg";
 import g6 from "@/assets/gallery-6.jpg";
 
-export const Route = createFileRoute("/services/$slug")({
-  head: ({ params }) => {
-    const s = services.find((x) => x.slug === params.slug);
-    return {
-      meta: [
-        { title: `${s?.title ?? "Service"} — Farawi Events` },
-        { name: "description", content: s?.short ?? "" },
-        { property: "og:title", content: `${s?.title} — Farawi Events` },
-        { property: "og:description", content: s?.short ?? "" },
-        { property: "og:image", content: s?.image ?? "" },
-      ],
-    };
-  },
-  loader: ({ params }) => {
-    const service = services.find((s) => s.slug === params.slug);
-    if (!service) throw notFound();
-    return { service };
-  },
-  notFoundComponent: () => (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="heading-display text-gold-gradient">Service Not Found</h1>
-        <Link to="/services" className="btn-gold mt-8">View All Services</Link>
-      </div>
-    </div>
-  ),
-  component: ServicePage,
-});
-
 const galleryImages = [g1, g2, g3, g6];
 
-function ServicePage() {
-  const { service } = Route.useLoaderData() as { service: (typeof services)[number] };
+export default function ServicePage() {
+  const { slug } = useParams<{ slug: string }>();
+  const service = services.find((s) => s.slug === slug);
+
+  if (!service) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="heading-display text-gold-gradient">Service Not Found</h1>
+          <Link to="/services" className="btn-gold mt-8">View All Services</Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
+      <Helmet>
+        <title>{`${service.title} — Farawi Events`}</title>
+        <meta name="description" content={service.short} />
+        <meta property="og:title" content={`${service.title} — Farawi Events`} />
+        <meta property="og:description" content={service.short} />
+        <meta property="og:image" content={service.image} />
+      </Helmet>
       <PageHero image={service.image} eyebrow="Our Services" title={service.title} breadcrumb={service.title} />
 
       <section className="section-padding container-luxe">
@@ -91,7 +82,7 @@ function ServicePage() {
               <h5 className="text-xs uppercase tracking-[0.3em] text-[var(--gold)] mb-4">Other Services</h5>
               <div className="space-y-2">
                 {services.filter((x) => x.slug !== service.slug).map((s) => (
-                  <Link key={s.slug} to="/services/$slug" params={{ slug: s.slug }}
+                  <Link key={s.slug} to={`/services/${s.slug}`}
                     className="flex items-center justify-between py-3 border-b border-white/10 last:border-0 text-sm text-white/70 hover:text-[var(--gold)] transition-colors group">
                     {s.title}
                     <ArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />

@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import {
   Facebook, Instagram, Linkedin, MapPin, Phone, Mail, Heart,
   Home, Info, Sparkles, Image as ImageIcon, ChevronRight,
@@ -68,7 +68,7 @@ export function Footer() {
               const Icon = serviceIcons[s.slug] ?? ChevronRight;
               return (
                 <li key={s.slug}>
-                  <Link to="/services/$slug" params={{ slug: s.slug }} className="flex items-center gap-2 hover:text-[var(--gold)] transition-colors group">
+                  <Link to={`/services/${s.slug}`} className="flex items-center gap-2 hover:text-[var(--gold)] transition-colors group">
                     <Icon className="h-4 w-4 text-[var(--gold)]/70 group-hover:text-[var(--gold)] shrink-0" />
                     <span>{s.title}</span>
                   </Link>

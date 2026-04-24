@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { ArrowRight, Star, Quote } from "lucide-react";
 import hero from "@/assets/hero-1.jpg";
@@ -13,28 +14,21 @@ import logo from "@/assets/farawi-logo.png";
 import { services } from "@/data/services";
 import { whatsappLink } from "@/components/site-config";
 import { SectionHeader } from "@/components/SectionHeader";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Farawi Events — Luxury Event Management in Dubai" },
-      { name: "description", content: "Dubai's premier luxury event company specializing in weddings, parties, corporate events, hospitality and entertainment production." },
-      { property: "og:title", content: "Farawi Events — Luxury Event Management in Dubai" },
-      { property: "og:description", content: "Crafting cinematic, unforgettable celebrations in the heart of Dubai." },
-    ],
-  }),
-  component: Home,
-});
-
 const testimonials = [
   { name: "Aisha Al Mansoori", role: "Bride", text: "Farawi Events transformed our wedding into a fairytale. Every detail was breathtaking — from the floral arches to the live entertainment. Truly world-class." },
   { name: "Khalid Rahman", role: "CEO, Mansour Holdings", text: "Their corporate gala exceeded every expectation. Flawless execution, elegant design, and impeccable hospitality. Our guests are still talking about it." },
   { name: "Sophia Laurent", role: "Private Client", text: "From concept to curtain call, they delivered pure magic. The attention to detail and creative vision is unmatched in Dubai." },
 ];
 
-function Home() {
+export default function Home() {
   return (
     <>
+      <Helmet>
+        <title>Farawi Events — Luxury Event Management in Dubai</title>
+        <meta name="description" content="Dubai's premier luxury event company specializing in weddings, parties, corporate events, hospitality and entertainment production." />
+        <meta property="og:title" content="Farawi Events — Luxury Event Management in Dubai" />
+        <meta property="og:description" content="Crafting cinematic, unforgettable celebrations in the heart of Dubai." />
+      </Helmet>
       {/* HERO */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <motion.div
@@ -151,7 +145,7 @@ function Home() {
                 initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.1 }}
               >
-                <Link to="/services/$slug" params={{ slug: s.slug }} className="group block relative overflow-hidden h-[460px]">
+                <Link to={`/services/${s.slug}`} className="group block relative overflow-hidden h-[460px]">
                   <img src={s.image} alt={s.title} loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />

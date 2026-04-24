@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, Home, Info, Sparkles, Image as ImageIcon, Mail, type LucideIcon } from "lucide-react";
 import icon from "@/assets/farawi-icon.png";
 import { services } from "@/data/services";
@@ -56,8 +56,7 @@ export function Navbar() {
                 <>
                   <Link
                     to={item.to}
-                    className="flex items-center gap-1.5 text-xs uppercase tracking-[0.25em] text-white/80 hover:text-[var(--gold)] transition-colors"
-                    activeProps={{ className: "text-[var(--gold)]" }}
+                    className={`flex items-center gap-1.5 text-xs uppercase tracking-[0.25em] hover:text-[var(--gold)] transition-colors ${pathname.startsWith(item.to) && item.to !== "/" ? "text-[var(--gold)]" : "text-white/80"}`}
                   >
                     <item.Icon className="h-3.5 w-3.5" />
                     {item.label}
@@ -68,8 +67,7 @@ export function Navbar() {
                       {services.map((s) => (
                         <Link
                           key={s.slug}
-                          to="/services/$slug"
-                          params={{ slug: s.slug }}
+                          to={`/services/${s.slug}`}
                           className="block px-5 py-3 text-xs uppercase tracking-[0.2em] text-white/70 hover:text-[var(--gold)] hover:bg-[var(--gold)]/5 transition-colors border-l-2 border-transparent hover:border-[var(--gold)]"
                         >
                           {s.title}
@@ -81,9 +79,7 @@ export function Navbar() {
               ) : (
                 <Link
                   to={item.to}
-                  className="flex items-center gap-1.5 text-xs uppercase tracking-[0.25em] text-white/80 hover:text-[var(--gold)] transition-colors"
-                  activeProps={{ className: "text-[var(--gold)]" }}
-                  activeOptions={{ exact: true }}
+                  className={`flex items-center gap-1.5 text-xs uppercase tracking-[0.25em] hover:text-[var(--gold)] transition-colors ${pathname === item.to ? "text-[var(--gold)]" : "text-white/80"}`}
                 >
                   <item.Icon className="h-3.5 w-3.5" />
                   {item.label}
@@ -118,7 +114,7 @@ export function Navbar() {
                   {servicesOpen && (
                     <div className="pl-4 py-2 space-y-2">
                       {services.map((s) => (
-                        <Link key={s.slug} to="/services/$slug" params={{ slug: s.slug }} className="block py-2 text-xs uppercase tracking-[0.2em] text-white/60 hover:text-[var(--gold)]">
+                        <Link key={s.slug} to={`/services/${s.slug}`} className="block py-2 text-xs uppercase tracking-[0.2em] text-white/60 hover:text-[var(--gold)]">
                           {s.title}
                         </Link>
                       ))}

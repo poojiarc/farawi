@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { X } from "lucide-react";
@@ -16,19 +16,6 @@ import h from "@/assets/service-hospitality.jpg";
 import hero from "@/assets/hero-1.jpg";
 import about1 from "@/assets/about-1.jpg";
 
-export const Route = createFileRoute("/gallery")({
-  head: () => ({
-    meta: [
-      { title: "Gallery — Farawi Events Dubai" },
-      { name: "description", content: "A curated portfolio of luxury weddings, parties and corporate events crafted by Farawi Events." },
-      { property: "og:title", content: "Gallery — Farawi Events" },
-      { property: "og:description", content: "Discover cinematic moments from our recent celebrations." },
-      { property: "og:image", content: hero },
-    ],
-  }),
-  component: Gallery,
-});
-
 const items = [
   { src: g3, cat: "Weddings" }, { src: w, cat: "Weddings" },
   { src: g4, cat: "Parties" }, { src: p, cat: "Parties" },
@@ -39,13 +26,20 @@ const items = [
 ];
 const cats = ["All", "Weddings", "Parties", "Corporate"];
 
-function Gallery() {
+export default function Gallery() {
   const [filter, setFilter] = useState("All");
   const [lightbox, setLightbox] = useState<string | null>(null);
   const filtered = filter === "All" ? items : items.filter((i) => i.cat === filter);
 
   return (
     <>
+      <Helmet>
+        <title>Gallery — Farawi Events Dubai</title>
+        <meta name="description" content="A curated portfolio of luxury weddings, parties and corporate events crafted by Farawi Events." />
+        <meta property="og:title" content="Gallery — Farawi Events" />
+        <meta property="og:description" content="Discover cinematic moments from our recent celebrations." />
+        <meta property="og:image" content={hero} />
+      </Helmet>
       <PageHero image={hero} eyebrow="Portfolio" title="Our <em class='text-gold-gradient italic'>Gallery</em>" breadcrumb="Gallery" />
 
       <section className="section-padding container-luxe">
