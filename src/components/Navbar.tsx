@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Home, Info, Sparkles, Image as ImageIcon, Mail, type LucideIcon } from "lucide-react";
 import icon from "@/assets/farawi-icon.png";
 import { services } from "@/data/services";
 
-const nav = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/services", label: "Services", dropdown: true },
-  { to: "/gallery", label: "Gallery" },
-  { to: "/contact", label: "Contact" },
-] as const;
+type NavItem = {
+  to: "/" | "/about" | "/services" | "/gallery" | "/contact";
+  label: string;
+  Icon: LucideIcon;
+  dropdown?: boolean;
+};
+
+const nav: NavItem[] = [
+  { to: "/", label: "Home", Icon: Home },
+  { to: "/about", label: "About", Icon: Info },
+  { to: "/services", label: "Services", Icon: Sparkles, dropdown: true },
+  { to: "/gallery", label: "Gallery", Icon: ImageIcon },
+  { to: "/contact", label: "Contact", Icon: Mail },
+];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
