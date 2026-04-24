@@ -9,6 +9,7 @@ import Gallery from "./routes/gallery";
 import Services from "./routes/services";
 import ServiceDetail from "./routes/services.$slug";
 import { Link } from "react-router-dom";
+import { ScrollToTop } from "./components/ScrollToTop";
 
 function NotFoundComponent() {
   return (
@@ -25,6 +26,7 @@ function NotFoundComponent() {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Navbar />
       <main className="min-h-screen bg-black text-white">
         <Routes>

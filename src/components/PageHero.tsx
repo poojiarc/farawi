@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 
 export function PageHero({ image, eyebrow, title, breadcrumb }: {
   image: string; eyebrow: string; title: string; breadcrumb: string;
@@ -14,11 +13,6 @@ export function PageHero({ image, eyebrow, title, breadcrumb }: {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
           <div className="text-xs uppercase tracking-[0.5em] text-[var(--gold)] mb-6">{eyebrow}</div>
           <h1 className="heading-display text-white" dangerouslySetInnerHTML={{ __html: title }} />
-          <div className="mt-8 text-xs uppercase tracking-[0.3em] text-white/60">
-            <Link to="/" className="hover:text-[var(--gold)]">Home</Link>
-            <span className="mx-3 text-[var(--gold)]">/</span>
-            <span className="text-[var(--gold)]">{breadcrumb}</span>
-          </div>
         </motion.div>
       </div>
     </section>
