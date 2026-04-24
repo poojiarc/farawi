@@ -92,11 +92,23 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="container-luxe mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row gap-4 justify-between items-center text-xs text-white/50">
+      <div className="container-luxe mt-16 pt-8 border-t border-white/10 flex flex-col gap-3 justify-center items-center text-xs text-white/50 text-center">
         <div>© {new Date().getFullYear()} FARAWI events. All rights reserved.</div>
-        <div className="flex items-center gap-2">
-          Made with <Heart className="h-3 w-3 fill-[var(--gold)] text-[var(--gold)]" /> by{" "}
-          <a href="https://staffarc.com" target="_blank" rel="noreferrer" className="text-[var(--gold)] hover:underline">StaffArc</a>
+        <div className="flex justify-center items-center gap-1">
+          Made with <Heart className="inline h-4 w-4 text-red-500 mx-1" /> by
+          <a
+            href="https://staffarc.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-orange-600 hover:underline ml-1"
+          >
+            <img
+              src="https://www.staffarc.in/images/Staffarc-logo.png"
+              alt="StaffArc logo"
+              className="h-5 w-5 object-contain"
+            />
+            StaffArc
+          </a>
         </div>
       </div>
     </footer>
