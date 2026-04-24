@@ -112,7 +112,8 @@ export function Navbar() {
                     onClick={() => setServicesOpen(!servicesOpen)}
                     className="w-full flex justify-between items-center py-3 text-xs uppercase tracking-[0.25em] text-white/80 border-b border-white/10"
                   >
-                    {item.label} <ChevronDown className={`h-3 w-3 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+                    <span className="flex items-center gap-2"><item.Icon className="h-3.5 w-3.5" />{item.label}</span>
+                    <ChevronDown className={`h-3 w-3 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
                   </button>
                   {servicesOpen && (
                     <div className="pl-4 py-2 space-y-2">
@@ -125,8 +126,8 @@ export function Navbar() {
                   )}
                 </>
               ) : (
-                <Link to={item.to} className="block py-3 text-xs uppercase tracking-[0.25em] text-white/80 border-b border-white/10 hover:text-[var(--gold)]">
-                  {item.label}
+                <Link to={item.to} className="flex items-center gap-2 py-3 text-xs uppercase tracking-[0.25em] text-white/80 border-b border-white/10 hover:text-[var(--gold)]">
+                  <item.Icon className="h-3.5 w-3.5" />{item.label}
                 </Link>
               )}
             </div>
