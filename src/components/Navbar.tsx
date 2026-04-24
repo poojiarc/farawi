@@ -56,9 +56,10 @@ export function Navbar() {
                 <>
                   <Link
                     to={item.to}
-                    className="flex items-center gap-1 text-xs uppercase tracking-[0.25em] text-white/80 hover:text-[var(--gold)] transition-colors"
+                    className="flex items-center gap-1.5 text-xs uppercase tracking-[0.25em] text-white/80 hover:text-[var(--gold)] transition-colors"
                     activeProps={{ className: "text-[var(--gold)]" }}
                   >
+                    <item.Icon className="h-3.5 w-3.5" />
                     {item.label}
                     <ChevronDown className="h-3 w-3" />
                   </Link>
@@ -80,10 +81,11 @@ export function Navbar() {
               ) : (
                 <Link
                   to={item.to}
-                  className="text-xs uppercase tracking-[0.25em] text-white/80 hover:text-[var(--gold)] transition-colors"
+                  className="flex items-center gap-1.5 text-xs uppercase tracking-[0.25em] text-white/80 hover:text-[var(--gold)] transition-colors"
                   activeProps={{ className: "text-[var(--gold)]" }}
                   activeOptions={{ exact: true }}
                 >
+                  <item.Icon className="h-3.5 w-3.5" />
                   {item.label}
                 </Link>
               )}
