@@ -41,7 +41,7 @@ export const Route = createFileRoute("/services/$slug")({
 const galleryImages = [g1, g2, g3, g6];
 
 function ServicePage() {
-  const { service } = Route.useLoaderData();
+  const { service } = Route.useLoaderData() as { service: (typeof services)[number] };
 
   return (
     <>
@@ -61,7 +61,7 @@ function ServicePage() {
 
             <h3 className="font-serif text-2xl text-white mt-12 mb-6">What's Included</h3>
             <div className="grid sm:grid-cols-2 gap-3">
-              {service.features.map((f, i) => (
+              {service.features.map((f: string, i: number) => (
                 <motion.div
                   key={f}
                   initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}

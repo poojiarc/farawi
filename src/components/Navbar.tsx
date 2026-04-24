@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Home, Info, Sparkles, Image as ImageIcon, Mail, type LucideIcon } from "lucide-react";
 import icon from "@/assets/farawi-icon.png";
 import { services } from "@/data/services";
 
-const nav = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/services", label: "Services", dropdown: true },
-  { to: "/gallery", label: "Gallery" },
-  { to: "/contact", label: "Contact" },
-] as const;
+type NavItem = {
+  to: "/" | "/about" | "/services" | "/gallery" | "/contact";
+  label: string;
+  Icon: LucideIcon;
+  dropdown?: boolean;
+};
+
+const nav: NavItem[] = [
+  { to: "/", label: "Home", Icon: Home },
+  { to: "/about", label: "About", Icon: Info },
+  { to: "/services", label: "Services", Icon: Sparkles, dropdown: true },
+  { to: "/gallery", label: "Gallery", Icon: ImageIcon },
+  { to: "/contact", label: "Contact", Icon: Mail },
+];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -49,9 +56,10 @@ export function Navbar() {
                 <>
                   <Link
                     to={item.to}
-                    className="flex items-center gap-1 text-xs uppercase tracking-[0.25em] text-white/80 hover:text-[var(--gold)] transition-colors"
+                    className="flex items-center gap-1.5 text-xs uppercase tracking-[0.25em] text-white/80 hover:text-[var(--gold)] transition-colors"
                     activeProps={{ className: "text-[var(--gold)]" }}
                   >
+                    <item.Icon className="h-3.5 w-3.5" />
                     {item.label}
                     <ChevronDown className="h-3 w-3" />
                   </Link>
@@ -73,10 +81,11 @@ export function Navbar() {
               ) : (
                 <Link
                   to={item.to}
-                  className="text-xs uppercase tracking-[0.25em] text-white/80 hover:text-[var(--gold)] transition-colors"
+                  className="flex items-center gap-1.5 text-xs uppercase tracking-[0.25em] text-white/80 hover:text-[var(--gold)] transition-colors"
                   activeProps={{ className: "text-[var(--gold)]" }}
                   activeOptions={{ exact: true }}
                 >
+                  <item.Icon className="h-3.5 w-3.5" />
                   {item.label}
                 </Link>
               )}
@@ -103,7 +112,8 @@ export function Navbar() {
                     onClick={() => setServicesOpen(!servicesOpen)}
                     className="w-full flex justify-between items-center py-3 text-xs uppercase tracking-[0.25em] text-white/80 border-b border-white/10"
                   >
-                    {item.label} <ChevronDown className={`h-3 w-3 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+                    <span className="flex items-center gap-2"><item.Icon className="h-3.5 w-3.5" />{item.label}</span>
+                    <ChevronDown className={`h-3 w-3 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
                   </button>
                   {servicesOpen && (
                     <div className="pl-4 py-2 space-y-2">
@@ -116,8 +126,8 @@ export function Navbar() {
                   )}
                 </>
               ) : (
-                <Link to={item.to} className="block py-3 text-xs uppercase tracking-[0.25em] text-white/80 border-b border-white/10 hover:text-[var(--gold)]">
-                  {item.label}
+                <Link to={item.to} className="flex items-center gap-2 py-3 text-xs uppercase tracking-[0.25em] text-white/80 border-b border-white/10 hover:text-[var(--gold)]">
+                  <item.Icon className="h-3.5 w-3.5" />{item.label}
                 </Link>
               )}
             </div>

@@ -1,8 +1,27 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Linkedin, MapPin, Phone, Mail, Heart } from "lucide-react";
+import {
+  Facebook, Instagram, Linkedin, MapPin, Phone, Mail, Heart,
+  Home, Info, Sparkles, Image as ImageIcon, ChevronRight,
+  PartyPopper, Music, UtensilsCrossed, CalendarCheck,
+} from "lucide-react";
 import logo from "@/assets/farawi-logo.png";
 import { site } from "./site-config";
 import { services } from "@/data/services";
+
+const quickLinks = [
+  { to: "/" as const, label: "Home", Icon: Home },
+  { to: "/about" as const, label: "About", Icon: Info },
+  { to: "/services" as const, label: "Services", Icon: Sparkles },
+  { to: "/gallery" as const, label: "Gallery", Icon: ImageIcon },
+  { to: "/contact" as const, label: "Contact", Icon: Mail },
+];
+
+const serviceIcons: Record<string, typeof CalendarCheck> = {
+  "managing-organizing-events": CalendarCheck,
+  "organizing-parties": PartyPopper,
+  "entertainments-parties-services": Music,
+  "hospitality-services": UtensilsCrossed,
+};
 
 export function Footer() {
   return (
@@ -31,24 +50,31 @@ export function Footer() {
         <div>
           <h4 className="text-sm uppercase tracking-[0.3em] text-[var(--gold)] mb-6">Quick Links</h4>
           <ul className="space-y-3 text-sm text-white/60">
-            <li><Link to="/" className="hover:text-[var(--gold)] transition-colors">Home</Link></li>
-            <li><Link to="/about" className="hover:text-[var(--gold)] transition-colors">About</Link></li>
-            <li><Link to="/services" className="hover:text-[var(--gold)] transition-colors">Services</Link></li>
-            <li><Link to="/gallery" className="hover:text-[var(--gold)] transition-colors">Gallery</Link></li>
-            <li><Link to="/contact" className="hover:text-[var(--gold)] transition-colors">Contact</Link></li>
+            {quickLinks.map(({ to, label, Icon }) => (
+              <li key={to}>
+                <Link to={to} className="flex items-center gap-2 hover:text-[var(--gold)] transition-colors group">
+                  <Icon className="h-4 w-4 text-[var(--gold)]/70 group-hover:text-[var(--gold)]" />
+                  {label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         <div>
           <h4 className="text-sm uppercase tracking-[0.3em] text-[var(--gold)] mb-6">Services</h4>
           <ul className="space-y-3 text-sm text-white/60">
-            {services.map((s) => (
-              <li key={s.slug}>
-                <Link to="/services/$slug" params={{ slug: s.slug }} className="hover:text-[var(--gold)] transition-colors">
-                  {s.title}
-                </Link>
-              </li>
-            ))}
+            {services.map((s) => {
+              const Icon = serviceIcons[s.slug] ?? ChevronRight;
+              return (
+                <li key={s.slug}>
+                  <Link to="/services/$slug" params={{ slug: s.slug }} className="flex items-center gap-2 hover:text-[var(--gold)] transition-colors group">
+                    <Icon className="h-4 w-4 text-[var(--gold)]/70 group-hover:text-[var(--gold)] shrink-0" />
+                    <span>{s.title}</span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
 
@@ -66,11 +92,23 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="container-luxe mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row gap-4 justify-between items-center text-xs text-white/50">
+      <div className="container-luxe mt-16 pt-8 border-t border-white/10 flex flex-col gap-3 justify-center items-center text-xs text-white/50 text-center">
         <div>© {new Date().getFullYear()} FARAWI events. All rights reserved.</div>
-        <div className="flex items-center gap-2">
-          Made with <Heart className="h-3 w-3 fill-[var(--gold)] text-[var(--gold)]" /> by{" "}
-          <a href="https://staffarc.com" target="_blank" rel="noreferrer" className="text-[var(--gold)] hover:underline">StaffArc</a>
+        <div className="flex justify-center items-center gap-1">
+          Made with <Heart className="inline h-4 w-4 text-red-500 mx-1" /> by
+          <a
+            href="https://staffarc.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-orange-600 hover:underline ml-1"
+          >
+            <img
+              src="https://www.staffarc.in/images/Staffarc-logo.png"
+              alt="StaffArc logo"
+              className="h-5 w-5 object-contain"
+            />
+            StaffArc
+          </a>
         </div>
       </div>
     </footer>
