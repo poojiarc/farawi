@@ -4,7 +4,7 @@ export const site = {
   phoneRaw: "043951423",
   whatsapp: "+971 56 123 9797",
   whatsappRaw: "971561239797",
-  email: "farawievents@gmail.com",
+  email: "sales@farawievents.com",
   address: "Dubai, UAE",
   hours: {
     weekdays: "Monday – Friday: 8:00 – 17:00",
